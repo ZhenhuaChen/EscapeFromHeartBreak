@@ -1,0 +1,152 @@
+<!--assessment.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="step">2/2</view>
+    <view class="title">了解你的状态</view>
+    <view class="subtitle">回答几个问题，帮助我们更好地为你定制计划</view>
+  </view>
+
+  <view class="questions">
+    <!-- 问题1：分手多久 -->
+    <view class="question-item">
+      <view class="question-title">1. 你们分手多久了？</view>
+      <view class="options">
+        <view
+          class="option {{answers.breakupDays === 1 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="breakupDays"
+          data-value="1"
+        >
+          1周内
+        </view>
+        <view
+          class="option {{answers.breakupDays === 7 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="breakupDays"
+          data-value="7"
+        >
+          1-2周
+        </view>
+        <view
+          class="option {{answers.breakupDays === 14 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="breakupDays"
+          data-value="14"
+        >
+          2周-1个月
+        </view>
+        <view
+          class="option {{answers.breakupDays === 30 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="breakupDays"
+          data-value="30"
+        >
+          1个月以上
+        </view>
+      </view>
+    </view>
+
+    <!-- 问题2：是否还联系 -->
+    <view class="question-item">
+      <view class="question-title">2. 你们现在还有联系吗？</view>
+      <view class="options">
+        <view
+          class="option {{answers.stillContact === true ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="stillContact"
+          data-value="true"
+        >
+          经常联系
+        </view>
+        <view
+          class="option {{answers.stillContact === false ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="stillContact"
+          data-value="false"
+        >
+          已经不联系了
+        </view>
+      </view>
+    </view>
+
+    <!-- 问题3：是否刷动态 -->
+    <view class="question-item">
+      <view class="question-title">3. 你会经常查看TA的社交动态吗？</view>
+      <view class="options">
+        <view
+          class="option {{answers.checkDynamic === true ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="checkDynamic"
+          data-value="true"
+        >
+          每天都会看
+        </view>
+        <view
+          class="option {{answers.checkDynamic === false ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="checkDynamic"
+          data-value="false"
+        >
+          不看或很少看
+        </view>
+      </view>
+    </view>
+
+    <!-- 问题4：睡眠质量 -->
+    <view class="question-item">
+      <view class="question-title">4. 最近的睡眠情况如何？</view>
+      <view class="options">
+        <view
+          class="option {{answers.sleepQuality === 1 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="sleepQuality"
+          data-value="1"
+        >
+          很难入睡
+        </view>
+        <view
+          class="option {{answers.sleepQuality === 2 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="sleepQuality"
+          data-value="2"
+        >
+          经常失眠
+        </view>
+        <view
+          class="option {{answers.sleepQuality === 3 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="sleepQuality"
+          data-value="3"
+        >
+          一般
+        </view>
+        <view
+          class="option {{answers.sleepQuality === 4 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="sleepQuality"
+          data-value="4"
+        >
+          还可以
+        </view>
+        <view
+          class="option {{answers.sleepQuality === 5 ? 'active' : ''}}"
+          bindtap="handleAnswer"
+          data-question="sleepQuality"
+          data-value="5"
+        >
+          很好
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <button
+      class="submit-btn {{canSubmit ? '' : 'disabled'}}"
+      bindtap="handleSubmit"
+      disabled="{{!canSubmit}}"
+    >
+      开始恢复计划
+    </button>
+  </view>
+</view>

@@ -1,0 +1,31 @@
+<!--goalSelect.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="icon">🎯</view>
+    <view class="title">选择你的目标</view>
+    <view class="subtitle">你最希望达到的状态是什么？</view>
+  </view>
+
+  <view class="goals-grid">
+    <view
+      wx:for="{{goals}}"
+      wx:key="value"
+      class="goal-item {{selectedGoal === item.value ? 'selected' : ''}}"
+      bindtap="handleSelectGoal"
+      data-value="{{item.value}}"
+    >
+      <view class="goal-icon">{{item.icon}}</view>
+      <view class="goal-text">{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <button
+      class="confirm-btn {{selectedGoal ? '' : 'disabled'}}"
+      bindtap="handleConfirm"
+      disabled="{{!selectedGoal}}"
+    >
+      确认目标
+    </button>
+  </view>
+</view>

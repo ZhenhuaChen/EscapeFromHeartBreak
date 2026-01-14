@@ -1,0 +1,54 @@
+<!--result.wxml-->
+<view class="container {{showResult ? 'show-result' : ''}}">
+  <!-- 计算中动画 -->
+  <view class="calculating-view {{showResult ? 'hide' : ''}}">
+    <view class="loading-hearts">
+      <view class="heart" wx:for="{{8}}" wx:key="*this" style="animation-delay: {{index * 0.15}}s"></view>
+    </view>
+    <view class="calculating-text">计算中</view>
+    <view class="calculating-subtitle">理解反应</view>
+
+    <!-- 分析项目 -->
+    <view class="analysis-items">
+      <view
+        wx:for="{{analysisItems}}"
+        wx:key="index"
+        class="analysis-item {{item.active ? 'active' : ''}}"
+      >
+        <view class="check-icon">{{item.active ? '✓' : ''}}</view>
+        <view class="analysis-text">{{item.text}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 结果展示 -->
+  <view class="result-view {{showResult ? 'show' : ''}}">
+    <view class="result-icon">🎉</view>
+    <view class="result-title">你的专属恢复计划已生成</view>
+
+    <view class="result-card">
+      <view class="days-display">
+        <text class="days-number">{{recoveryDays}}</text>
+        <text class="days-unit">天</text>
+      </view>
+      <view class="result-desc">完成恢复计划，重新出发</view>
+    </view>
+
+    <view class="result-tips">
+      <view class="tip-item">
+        <text class="tip-icon">📅</text>
+        <text class="tip-text">每天完成打卡任务</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">📈</text>
+        <text class="tip-text">看到自己的进步</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">💪</text>
+        <text class="tip-text">成为更好的自己</text>
+      </view>
+    </view>
+
+    <button class="start-btn" bindtap="goToHome">开始恢复之旅</button>
+  </view>
+</view>

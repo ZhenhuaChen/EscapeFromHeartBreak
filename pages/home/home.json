@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "逃出失恋",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar"
+  }
+}

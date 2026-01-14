@@ -1,0 +1,33 @@
+<!--welcome.wxml-->
+<view class="container">
+  <view class="content">
+    <view class="title">逃出失恋</view>
+    <view class="subtitle">帮你不再沉溺失恋</view>
+
+    <view class="feature-list">
+      <view class="feature-item">
+        <text class="feature-icon">🎯</text>
+        <text class="feature-text">科学的戒断计划</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">📊</text>
+        <text class="feature-text">可视化恢复进度</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">💪</text>
+        <text class="feature-text">情绪急救工具</text>
+      </view>
+    </view>
+
+    <view class="slogan">
+      走出失恋，不是靠时间
+      <text class="highlight">而是靠行动</text>
+    </view>
+
+    <button class="start-btn" bindtap="handleStart">开始你的恢复之旅</button>
+
+    <view class="disclaimer">
+      * 本工具不替代专业心理咨询
+    </view>
+  </view>
+</view>

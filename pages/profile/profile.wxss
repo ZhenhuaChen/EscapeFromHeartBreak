@@ -1,0 +1,59 @@
+/* pages/profile/profile.wxss */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffeef8 0%, #e0f7ff 100%);
+  padding-bottom: calc(40rpx + 100rpx);
+}
+/* 菜单列表 */
+.menu-list {
+  margin: 30rpx 40rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.menu-text {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.arrow {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 免责声明 */
+.disclaimer {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  padding: 40rpx;
+  line-height: 1.6;
+}
+
+.hotline {
+  color: #ff9dcd;
+  margin-left: 10rpx;
+}

@@ -1,0 +1,44 @@
+<!--progress.wxml-->
+<navigation-bar title="我的进度" background="linear-gradient(90deg, #ffc0e0 0%, #ffe5f0 100%)" color="#333" back="{{false}}"></navigation-bar>
+
+<view class="container">
+  <view class="header">
+    <view class="title">我的进度</view>
+  </view>
+
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-number">{{detoxDays}}</text>
+      <text class="stat-label">已坚持天数</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-number">{{recoveryDays - detoxDays}}</text>
+      <text class="stat-label">剩余天数</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-number">{{completedTasksCount}}</text>
+      <text class="stat-label">完成任务数</text>
+    </view>
+  </view>
+
+  <view class="progress-section">
+    <view class="progress-title">总体进度</view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{overallProgress}}%"></view>
+    </view>
+    <view class="progress-text">{{overallProgress}}%</view>
+  </view>
+
+  <view class="calendar-section">
+    <view class="section-title">打卡日历</view>
+    <view class="calendar-grid">
+      <view
+        wx:for="{{calendarDays}}"
+        wx:key="index"
+        class="calendar-day {{item.completed ? 'completed' : ''}} {{item.isToday ? 'today' : ''}}"
+      >
+        <text class="day-number">{{item.day}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,98 @@
+/* pages/goalSelect/goalSelect.wxss */
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 60rpx 40rpx 200rpx;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.icon {
+  font-size: 80rpx;
+  margin-bottom: 30rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 目标网格 */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+}
+
+.goal-item {
+  background: #fff;
+  border: 3rpx solid #e0e0e0;
+  border-radius: 20rpx;
+  padding: 40rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200rpx;
+  transition: all 0.3s;
+}
+
+.goal-item.selected {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-color: #f5576c;
+  transform: scale(1.05);
+}
+
+.goal-icon {
+  font-size: 56rpx;
+  margin-bottom: 20rpx;
+}
+
+.goal-text {
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
+  font-weight: 500;
+}
+
+.goal-item.selected .goal-text {
+  color: #fff;
+}
+
+/* 底部按钮 */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40rpx;
+  background: #fff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.confirm-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: bold;
+  border-radius: 50rpx;
+  padding: 30rpx;
+  border: none;
+}
+
+.confirm-btn.disabled {
+  background: #ccc;
+  color: #999;
+}

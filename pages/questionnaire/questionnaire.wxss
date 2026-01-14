@@ -1,0 +1,136 @@
+/* pages/questionnaire/questionnaire.wxss */
+.container {
+  min-height: 100vh;
+  padding-top: 60px;
+  background: linear-gradient(180deg, #ffeef8 0%, #e0f7ff 100%);
+}
+
+/* 进度条 */
+.progress-bar {
+  height: 8rpx;
+  background: #e0e0e0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff9dcd 0%, #81d4fa 100%);
+  transition: width 0.3s ease;
+}
+
+/* 用户信息区域 */
+.userinfo-wrapper {
+  padding: 40rpx;
+  padding-top: calc(120rpx + constant(safe-area-inset-top));
+  padding-top: calc(120rpx + env(safe-area-inset-top));
+}
+
+.form {
+  margin-top: 60rpx;
+  margin-bottom: 80rpx;
+}
+
+.form-item {
+  margin-bottom: 50rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.input {
+  background: #fff;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 16rpx;
+  padding: 28rpx 30rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.next-btn {
+  background: linear-gradient(135deg, #ff9dcd 0%, #ffa8d8 100%);
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: bold;
+  border-radius: 50rpx;
+  padding: 30rpx;
+  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(255, 157, 205, 0.3);
+}
+
+.next-btn.disabled {
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+/* 问题区域 */
+.question-wrapper {
+  padding: 40rpx;
+  padding-top: calc(120rpx + constant(safe-area-inset-top));
+  padding-top: calc(120rpx + env(safe-area-inset-top));
+}
+
+.question-number {
+  font-size: 28rpx;
+  color: #ff9dcd;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.question-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.4;
+  margin-bottom: 80rpx;
+}
+
+/* 选项列表 */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.option-item {
+  background: #fff;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.option-item:active {
+  transform: scale(0.98);
+  background: #f8f8f8;
+}
+
+.option-number {
+  width: 56rpx;
+  height: 56rpx;
+  background: linear-gradient(135deg, #ff9dcd 0%, #81d4fa 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.option-text {
+  font-size: 32rpx;
+  color: #333;
+  flex: 1;
+}

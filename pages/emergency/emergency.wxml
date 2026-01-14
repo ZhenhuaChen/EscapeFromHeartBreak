@@ -1,0 +1,68 @@
+<!--emergency.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">情绪急救包</view>
+    <view class="subtitle">当你难受的时候，试试这些方法</view>
+  </view>
+
+  <view class="tools-list">
+    <!-- 呼吸练习 -->
+    <view class="tool-card breathing-card">
+      <view class="tool-header">
+        <text class="tool-icon">🫁</text>
+        <view class="tool-title-wrap">
+          <text class="tool-title">深呼吸练习</text>
+          <text class="tool-desc">30秒缓解焦虑</text>
+        </view>
+      </view>
+      <button class="tool-btn" bindtap="startBreathing">开始练习</button>
+    </view>
+
+    <!-- 想TA了按钮 -->
+    <view class="tool-card miss-card">
+      <view class="tool-header">
+        <text class="tool-icon">💭</text>
+        <view class="tool-title-wrap">
+          <text class="tool-title">又想TA了？</text>
+          <text class="tool-desc">立即分散注意力</text>
+        </view>
+      </view>
+      <button class="tool-btn" bindtap="handleMissing">点这里</button>
+    </view>
+
+    <!-- 紧急联系 -->
+    <view class="tool-card contact-card">
+      <view class="tool-header">
+        <text class="tool-icon">📞</text>
+        <view class="tool-title-wrap">
+          <text class="tool-title">需要倾诉？</text>
+          <text class="tool-desc">专业心理咨询热线</text>
+        </view>
+      </view>
+      <button class="tool-btn" bindtap="showHotline">查看热线</button>
+    </view>
+
+    <!-- 情绪波动记录 -->
+    <view class="tool-card record-card">
+      <view class="tool-header">
+        <text class="tool-icon">✍️</text>
+        <view class="tool-title-wrap">
+          <text class="tool-title">写下此刻感受</text>
+          <text class="tool-desc">记录只给自己看</text>
+        </view>
+      </view>
+      <button class="tool-btn" bindtap="recordFeeling">开始记录</button>
+    </view>
+  </view>
+
+  <!-- 呼吸练习弹窗 -->
+  <view class="breathing-modal {{showBreathingModal ? 'show' : ''}}" catchtap="closeBreathing">
+    <view class="breathing-content" catchtap="stopPropagation">
+      <view class="breathing-circle {{breathingPhase}}">
+        <text class="breathing-text">{{breathingText}}</text>
+      </view>
+      <view class="breathing-tip">{{breathingTip}}</view>
+      <button class="close-btn" bindtap="closeBreathing">结束练习</button>
+    </view>
+  </view>
+</view>

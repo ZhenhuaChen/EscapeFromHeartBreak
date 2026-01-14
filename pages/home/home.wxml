@@ -1,0 +1,77 @@
+<!--home.wxml-->
+<navigation-bar title="失恋戒断" background="linear-gradient(90deg, #ffc0e0 0%, #ffe5f0 100%)" color="#333" back="{{false}}"></navigation-bar>
+
+<view class="container">
+  <!-- 顶部状态卡片 -->
+  <view class="status-card">
+    <view class="greeting">你好，{{userProfile.nickname}}</view>
+    <view class="recovery-plan">
+      <text class="plan-text">{{recoveryDays}}天恢复计划</text>
+    </view>
+    <view class="days-info">
+      <view class="days-item">
+        <text class="days-number">{{detoxDays}}</text>
+        <text class="days-label">已坚持</text>
+      </view>
+      <view class="days-item">
+        <text class="days-number">{{recoveryDays - detoxDays}}</text>
+        <text class="days-label">剩余天数</text>
+      </view>
+      <view class="days-item">
+        <text class="days-number">{{completedTasksCount}}/{{totalTasksCount}}</text>
+        <text class="days-label">完成任务</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 进度条 -->
+  <view class="progress-section">
+    <view class="progress-header">
+      <text class="progress-title">恢复进度</text>
+      <text class="progress-percent">{{progressPercent}}%</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progressPercent}}%"></view>
+    </view>
+    <view class="progress-tip">{{progressTip}}</view>
+  </view>
+
+  <!-- 任务列表 -->
+  <view class="tasks-section">
+    <view class="section-title">戒断任务</view>
+    <view class="tasks-list">
+      <view
+        wx:for="{{tasksList}}"
+        wx:key="id"
+        class="task-item {{item.completed ? 'completed' : ''}} {{item.unlocked ? '' : 'locked'}}"
+      >
+        <view class="task-left">
+          <view class="task-checkbox {{item.completed ? 'checked' : ''}}" bindtap="handleToggleTask" data-id="{{item.id}}">
+            <text wx:if="{{item.completed}}" class="check-icon">✓</text>
+          </view>
+          <view class="task-info">
+            <view class="task-title">
+              <text>{{item.title}}</text>
+              <text wx:if="{{!item.unlocked}}" class="lock-icon">🔒</text>
+            </view>
+            <view class="task-desc">{{item.desc}}</view>
+            <view wx:if="{{item.completed}}" class="task-date">完成于 {{item.dateStr}}</view>
+          </view>
+        </view>
+        <view class="task-day">Day {{item.day}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷操作 -->
+  <view class="quick-actions">
+    <button class="action-btn emergency-btn" bindtap="goToEmergency">
+      <text class="btn-icon">💊</text>
+      <text class="btn-text">情绪急救</text>
+    </button>
+    <button class="action-btn emotion-btn" bindtap="recordEmotion">
+      <text class="btn-icon">📝</text>
+      <text class="btn-text">记录情绪</text>
+    </button>
+  </view>
+</view>

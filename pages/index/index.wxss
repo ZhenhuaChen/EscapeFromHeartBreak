@@ -1,0 +1,56 @@
+.container {
+  padding: 32rpx;
+  background: #f7f7f7;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 40rpx;
+}
+
+.day {
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #888;
+  margin-top: 8rpx;
+}
+
+.card {
+  background: #fff;
+  padding: 32rpx;
+  border-radius: 16rpx;
+  margin-bottom: 40rpx;
+}
+
+.task-title {
+  font-size: 32rpx;
+  margin-bottom: 16rpx;
+}
+
+.task-desc {
+  color: #555;
+  margin-bottom: 24rpx;
+}
+
+.primary-btn {
+  background: #5b6b73;
+  color: #fff;
+  border-radius: 12rpx;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+  margin-bottom: 40rpx;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: #5b6b73;
+  border: 1rpx solid #5b6b73;
+  border-radius: 12rpx;
+}

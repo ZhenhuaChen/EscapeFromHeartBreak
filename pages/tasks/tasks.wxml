@@ -1,0 +1,51 @@
+<!--tasks.wxml-->
+<navigation-bar title="任务打卡" background="linear-gradient(90deg, #ffc0e0 0%, #ffe5f0 100%)" color="#333" back="{{false}}"></navigation-bar>
+
+<view class="container">
+  <view class="header">
+    <view class="title">今日任务</view>
+    <view class="date">{{todayDate}}</view>
+  </view>
+
+  <view class="daily-task-card">
+    <view class="task-header">
+      <text class="task-day">Day {{detoxDays}}</text>
+      <text class="task-status {{todayTaskCompleted ? 'completed' : ''}}">
+        {{todayTaskCompleted ? '已完成' : '待完成'}}
+      </text>
+    </view>
+    <view class="task-content">
+      <view class="task-title">{{todayTask.title}}</view>
+      <view class="task-desc">{{todayTask.desc}}</view>
+    </view>
+    <button
+      wx:if="{{!todayTaskCompleted}}"
+      class="complete-btn"
+      bindtap="completeTask"
+    >
+      完成打卡
+    </button>
+    <view wx:else class="completed-time">
+      完成时间：{{completedTimeStr}}
+    </view>
+  </view>
+
+  <view class="all-tasks-section">
+    <view class="section-title">所有任务</view>
+    <view class="tasks-list">
+      <view
+        wx:for="{{tasksList}}"
+        wx:key="id"
+        class="task-item {{item.completed ? 'completed' : ''}}"
+      >
+        <view class="task-info">
+          <view class="task-name">Day {{item.day}} - {{item.title}}</view>
+          <view class="task-description">{{item.desc}}</view>
+        </view>
+        <view class="task-check">
+          <text wx:if="{{item.completed}}" class="check-icon">✓</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
