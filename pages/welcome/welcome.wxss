@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40rpx;
+  padding: 0rpx 40rpx;
 }
 
 .content {
@@ -65,9 +65,12 @@
   font-size: 36rpx;
   font-weight: bold;
   border-radius: 50rpx;
-  padding: 30rpx 80rpx;
+  padding: 30rpx;
   margin-bottom: 40rpx;
   box-shadow: 0 8rpx 24rpx rgba(255, 255, 255, 0.3);
+  width: 100%;
+  max-width: 600rpx;
+  white-space: nowrap;
 }
 
 .disclaimer {

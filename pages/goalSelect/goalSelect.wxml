@@ -6,18 +6,20 @@
     <view class="subtitle">你最希望达到的状态是什么？</view>
   </view>
 
-  <view class="goals-grid">
-    <view
-      wx:for="{{goals}}"
-      wx:key="value"
-      class="goal-item {{selectedGoal === item.value ? 'selected' : ''}}"
-      bindtap="handleSelectGoal"
-      data-value="{{item.value}}"
-    >
-      <view class="goal-icon">{{item.icon}}</view>
-      <view class="goal-text">{{item.label}}</view>
+  <scroll-view class="goals-scroll" scroll-y="true">
+    <view class="goals-grid">
+      <view
+        wx:for="{{goals}}"
+        wx:key="value"
+        class="goal-item {{selectedGoal === item.value ? 'selected' : ''}}"
+        bindtap="handleSelectGoal"
+        data-value="{{item.value}}"
+      >
+        <view class="goal-icon">{{item.icon}}</view>
+        <view class="goal-text">{{item.label}}</view>
+      </view>
     </view>
-  </view>
+  </scroll-view>
 
   <view class="footer">
     <button

@@ -1,4 +1,6 @@
 <!--emergency.wxml-->
+<navigation-bar title="情绪急救包" background="linear-gradient(90deg, #ffc0e0 0%, #ffe5f0 100%)" color="#333" back="{{true}}"></navigation-bar>
+
 <view class="container">
   <view class="header">
     <view class="title">情绪急救包</view>

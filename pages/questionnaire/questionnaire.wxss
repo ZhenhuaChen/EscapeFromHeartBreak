@@ -1,32 +1,30 @@
 /* pages/questionnaire/questionnaire.wxss */
 .container {
   min-height: 100vh;
-  padding-top: 60px;
+  padding-top: 100px;
   background: linear-gradient(180deg, #ffeef8 0%, #e0f7ff 100%);
 }
 
 /* 进度条 */
 .progress-bar {
-  height: 8rpx;
-  background: #e0e0e0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  height: 12rpx;
+  background: rgba(255, 255, 255, 0.5);
   z-index: 100;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ff9dcd 0%, #81d4fa 100%);
+  background: linear-gradient(90deg, #ff9dcd 0%, #ff6b9d 50%, #81d4fa 100%);
   transition: width 0.3s ease;
+  box-shadow: 0 0 8rpx rgba(255, 157, 205, 0.6);
 }
 
 /* 用户信息区域 */
 .userinfo-wrapper {
   padding: 40rpx;
-  padding-top: calc(120rpx + constant(safe-area-inset-top));
-  padding-top: calc(120rpx + env(safe-area-inset-top));
+  padding-top: calc(40rpx + constant(safe-area-inset-top));
+  padding-top: calc(40rpx + env(safe-area-inset-top));
 }
 
 .form {
@@ -72,8 +70,6 @@
 /* 问题区域 */
 .question-wrapper {
   padding: 40rpx;
-  padding-top: calc(120rpx + constant(safe-area-inset-top));
-  padding-top: calc(120rpx + env(safe-area-inset-top));
 }
 
 .question-number {

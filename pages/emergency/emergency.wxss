@@ -1,7 +1,10 @@
 /* pages/emergency/emergency.wxss */
-.container {
+page {
+  background: linear-gradient(180deg, #ffeef8 0%, #e0f7ff 100%);
   min-height: 100vh;
-  background: #f5f5f5;
+}
+
+.container {
   padding: 40rpx;
 }
 
@@ -65,12 +68,13 @@
 }
 
 .tool-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff9dcd 0%, #ffa8d8 100%);
   color: #fff;
   font-size: 28rpx;
   padding: 20rpx 40rpx;
   border-radius: 40rpx;
   border: none;
+  box-shadow: 0 4rpx 12rpx rgba(255, 157, 205, 0.3);
 }
 
 /* 呼吸练习弹窗 */
@@ -106,12 +110,13 @@
   width: 400rpx;
   height: 400rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff9dcd 0%, #81d4fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 60rpx;
   transition: transform 4s ease-in-out;
+  box-shadow: 0 0 40rpx rgba(255, 157, 205, 0.5);
 }
 
 .breathing-circle.inhale {

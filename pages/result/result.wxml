@@ -2,11 +2,27 @@
 <view class="container {{showResult ? 'show-result' : ''}}">
   <!-- 计算中动画 -->
   <view class="calculating-view {{showResult ? 'hide' : ''}}">
-    <view class="loading-hearts">
-      <view class="heart" wx:for="{{8}}" wx:key="*this" style="animation-delay: {{index * 0.15}}s"></view>
+    <view class="loading-animation">
+      <!-- 中心核心 -->
+      <view class="core-circle">
+        <view class="core-inner"></view>
+      </view>
+
+      <!-- 波纹层 -->
+      <view class="ripple-container">
+        <view class="ripple ripple-1"></view>
+        <view class="ripple ripple-2"></view>
+        <view class="ripple ripple-3"></view>
+      </view>
+
+      <!-- 粒子层 -->
+      <view class="particles-container">
+        <view class="particle" wx:for="{{12}}" wx:key="*this" style="--i: {{index}}"></view>
+      </view>
     </view>
-    <view class="calculating-text">计算中</view>
-    <view class="calculating-subtitle">理解反应</view>
+
+    <view class="calculating-text">AI 正在分析</view>
+    <view class="calculating-subtitle">生成专属恢复方案</view>
 
     <!-- 分析项目 -->
     <view class="analysis-items">

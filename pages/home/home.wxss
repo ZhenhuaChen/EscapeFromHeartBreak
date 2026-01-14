@@ -4,7 +4,6 @@
   background: linear-gradient(180deg, #ffeef8 0%, #e0f7ff 100%);
   padding: 40rpx;
   padding-bottom: calc(40rpx + 100rpx);
-  padding-top: calc(40rpx + env(safe-area-inset-top) + 44px);
 }
 
 /* 状态卡片 */

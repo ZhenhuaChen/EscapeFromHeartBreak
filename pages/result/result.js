@@ -23,24 +23,24 @@ Page({
       this.setData({
         'analysisItems[0].active': true
       })
-    }, 800)
+    }, 1000)
 
     setTimeout(() => {
       this.setData({
         'analysisItems[1].active': true
       })
-    }, 1600)
+    }, 3000)
 
     setTimeout(() => {
       this.setData({
         'analysisItems[2].active': true
       })
-    }, 2400)
+    }, 5000)
 
     // 3秒后显示结果
     setTimeout(() => {
       this.calculateAndShowResult()
-    }, 3200)
+    }, 8000)
   },
 
   calculateAndShowResult() {
