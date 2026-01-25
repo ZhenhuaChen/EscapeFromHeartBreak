@@ -33,7 +33,7 @@ Page({
 
     // 转换任务为数组并判断是否解锁
     const tasksList = Object.values(tasks).map(task => {
-      const unlocked = detoxDays >= task.day
+      const unlocked = detoxDays + 1 >= task.day
       let dateStr = ''
       if (task.date) {
         const date = new Date(task.date)

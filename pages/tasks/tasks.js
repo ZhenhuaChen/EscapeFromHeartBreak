@@ -1,19 +1,6 @@
 // pages/tasks/tasks.js
 const app = getApp()
-
-// 每日任务池
-const DAILY_TASKS = [
-  { title: '记录今天的心情', desc: '写下你今天的感受和想法' },
-  { title: '做一件喜欢的事', desc: '看书、听音乐、运动或任何让你开心的事' },
-  { title: '整理生活空间', desc: '清理房间，让环境更舒适' },
-  { title: '和朋友聊天', desc: '主动联系一位朋友，分享生活' },
-  { title: '运动30分钟', desc: '散步、跑步或任何形式的运动' },
-  { title: '学习新技能', desc: '花时间学习一项新的技能或爱好' },
-  { title: '感恩清单', desc: '列出今天值得感恩的3件事' },
-  { title: '冥想或深呼吸', desc: '给自己10分钟放松时间' },
-  { title: '健康饮食', desc: '为自己准备一顿营养的meal' },
-  { title: '早睡早起', desc: '保持规律作息，善待自己' }
-]
+const { DETOX_TASKS, ENCOURAGEMENT_MESSAGES } = require('../../data/tasks.js')
 
 Page({
   data: {
@@ -22,7 +9,9 @@ Page({
     todayTask: {},
     todayTaskCompleted: false,
     completedTimeStr: '',
-    tasksList: []
+    tasksList: [],
+    showEncouragement: false,
+    encouragementMessage: ''
   },
 
   onLoad() {
@@ -38,25 +27,34 @@ Page({
     const today = new Date()
     const todayDate = `${today.getMonth() + 1}月${today.getDate()}日`
 
-    // 根据天数选择今日任务（循环）
-    const taskIndex = detoxDays % DAILY_TASKS.length
-    const todayTask = DAILY_TASKS[taskIndex]
+    // 获取所有里程碑任务 - 优先从 globalData 读取，提高性能
+    let tasks = app.globalData.tasks
+    if (!tasks) {
+      tasks = wx.getStorageSync('tasks') || {}
+      app.globalData.tasks = tasks
+    }
+    const allTasks = Object.values(tasks).sort((a, b) => a.day - b.day)
 
-    // 检查今日任务是否完成
-    const dailyRecords = wx.getStorageSync('dailyTaskRecords') || {}
-    const todayKey = this.getTodayKey()
-    const todayRecord = dailyRecords[todayKey]
-    const todayTaskCompleted = todayRecord ? todayRecord.completed : false
+    // 只显示当天和过去的任务（不显示未来的任务）
+    const tasksList = allTasks.filter(task => task.day <= detoxDays)
+
+    // 获取今天的第一个任务作为"今日任务"展示
+    const todayTasks = DETOX_TASKS.filter(t => t.day === detoxDays)
+    const todayTask = todayTasks.length > 0 ? todayTasks[0] : { title: '休息日', desc: '今天没有新任务，继续保持！' }
+
+    // 检查今日任务完成情况 - 检查当天所有任务是否都完成
+    const todayTasksInList = tasksList.filter(t => t.day === detoxDays)
+    const completedTodayTasks = todayTasksInList.filter(t => t.completed)
+    const todayTaskCompleted = todayTasksInList.length > 0 && completedTodayTasks.length === todayTasksInList.length
 
     let completedTimeStr = ''
-    if (todayTaskCompleted && todayRecord.completedTime) {
-      const time = new Date(todayRecord.completedTime)
-      completedTimeStr = `${time.getMonth() + 1}/${time.getDate()} ${time.getHours()}:${String(time.getMinutes()).padStart(2, '0')}`
+    if (todayTaskCompleted && completedTodayTasks.length > 0) {
+      const lastCompleted = completedTodayTasks[completedTodayTasks.length - 1]
+      if (lastCompleted.date) {
+        const time = new Date(lastCompleted.date)
+        completedTimeStr = `${time.getMonth() + 1}/${time.getDate()} ${time.getHours()}:${String(time.getMinutes()).padStart(2, '0')}`
+      }
     }
-
-    // 获取所有里程碑任务
-    const tasks = wx.getStorageSync('tasks') || {}
-    const tasksList = Object.values(tasks).sort((a, b) => a.day - b.day)
 
     this.setData({
       detoxDays,
@@ -68,28 +66,83 @@ Page({
     })
   },
 
-  getTodayKey() {
-    const today = new Date()
-    return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
-  },
+  // 处理任务列表项点击
+  handleTaskTap(e) {
+    const taskId = e.currentTarget.dataset.taskId
 
-  completeTask() {
-    const todayKey = this.getTodayKey()
-    const dailyRecords = wx.getStorageSync('dailyTaskRecords') || {}
-
-    dailyRecords[todayKey] = {
-      completed: true,
-      completedTime: Date.now(),
-      task: this.data.todayTask
+    // 优先从 globalData 读取
+    let tasks = app.globalData.tasks
+    if (!tasks) {
+      tasks = wx.getStorageSync('tasks') || {}
+      app.globalData.tasks = tasks
     }
 
-    wx.setStorageSync('dailyTaskRecords', dailyRecords)
+    const task = tasks[taskId]
 
-    wx.showToast({
-      title: '打卡成功！',
-      icon: 'success'
-    })
+    if (!task) return
 
+    // 只能完成当天的任务
+    if (task.day !== this.data.detoxDays) {
+      if (task.day < this.data.detoxDays) {
+        wx.showToast({
+          title: '任务已过期',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '任务未解锁',
+          icon: 'none'
+        })
+      }
+      return
+    }
+
+    // 已完成的任务不能再次完成
+    if (task.completed) {
+      wx.showToast({
+        title: '任务已完成',
+        icon: 'none'
+      })
+      return
+    }
+
+    // 完成任务
+    task.completed = true
+    task.date = Date.now()
+    tasks[taskId] = task
+
+    // 同时更新缓存和全局数据
+    wx.setStorageSync('tasks', tasks)
+    app.globalData.tasks = tasks
+
+    // 显示鼓励弹窗
+    this.showEncouragementModal()
+
+    // 刷新数据
     this.loadData()
+  },
+
+  // 显示鼓励弹窗
+  showEncouragementModal() {
+    // 随机选择一条鼓励语
+    const randomIndex = Math.floor(Math.random() * ENCOURAGEMENT_MESSAGES.length)
+    const message = ENCOURAGEMENT_MESSAGES[randomIndex]
+
+    this.setData({
+      showEncouragement: true,
+      encouragementMessage: message
+    })
+  },
+
+  // 关闭鼓励弹窗
+  closeEncouragement() {
+    this.setData({
+      showEncouragement: false
+    })
+  },
+
+  // 阻止冒泡
+  stopPropagation() {
+    // 阻止事件冒泡，防止点击内容区域关闭弹窗
   }
 })

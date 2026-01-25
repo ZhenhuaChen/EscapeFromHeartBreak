@@ -11,21 +11,17 @@
     <view class="task-header">
       <text class="task-day">Day {{detoxDays}}</text>
       <text class="task-status {{todayTaskCompleted ? 'completed' : ''}}">
-        {{todayTaskCompleted ? '已完成' : '待完成'}}
+        {{todayTaskCompleted ? '全部完成' : '进行中'}}
       </text>
     </view>
     <view class="task-content">
       <view class="task-title">{{todayTask.title}}</view>
       <view class="task-desc">{{todayTask.desc}}</view>
     </view>
-    <button
-      wx:if="{{!todayTaskCompleted}}"
-      class="complete-btn"
-      bindtap="completeTask"
-    >
-      完成打卡
-    </button>
-    <view wx:else class="completed-time">
+    <view class="task-hint">
+      <text>👇 点击下方任务列表中的任务完成打卡</text>
+    </view>
+    <view wx:if="{{todayTaskCompleted}}" class="completed-time">
       完成时间：{{completedTimeStr}}
     </view>
   </view>
@@ -36,7 +32,9 @@
       <view
         wx:for="{{tasksList}}"
         wx:key="id"
-        class="task-item {{item.completed ? 'completed' : ''}}"
+        class="task-item {{item.completed ? 'completed' : ''}} {{item.day === detoxDays ? 'current' : ''}}"
+        bindtap="handleTaskTap"
+        data-task-id="{{item.id}}"
       >
         <view class="task-info">
           <view class="task-name">Day {{item.day}} - {{item.title}}</view>
@@ -44,8 +42,19 @@
         </view>
         <view class="task-check">
           <text wx:if="{{item.completed}}" class="check-icon">✓</text>
+          <text wx:elif="{{item.day === detoxDays}}" class="check-icon pending">○</text>
         </view>
       </view>
     </view>
+  </view>
+</view>
+
+<!-- 鼓励弹窗 -->
+<view wx:if="{{showEncouragement}}" class="encouragement-modal" bindtap="closeEncouragement">
+  <view class="encouragement-content" catchtap="stopPropagation">
+    <view class="encouragement-icon">🎉</view>
+    <view class="encouragement-title">任务完成！</view>
+    <view class="encouragement-message">{{encouragementMessage}}</view>
+    <button class="encouragement-btn" bindtap="closeEncouragement">继续加油</button>
   </view>
 </view>
