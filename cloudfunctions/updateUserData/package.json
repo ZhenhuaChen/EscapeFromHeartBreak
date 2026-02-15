@@ -1,0 +1,9 @@
+{
+  "name": "updateUserData",
+  "version": "1.0.0",
+  "description": "更新用户数据（通用接口）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
