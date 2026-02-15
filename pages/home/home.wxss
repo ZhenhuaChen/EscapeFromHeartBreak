@@ -1,9 +1,10 @@
 /* pages/home/home.wxss */
 .container {
-  min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(180deg, #ffeef8 0%, #e0f7ff 100%);
   padding: 40rpx;
   padding-bottom: calc(40rpx + 100rpx);
+  overflow: scroll;
 }
 
 /* 状态卡片 */
@@ -120,6 +121,7 @@
   display: flex;
   flex-direction: column;
   gap: 20rpx;
+  margin-bottom: 40rpx;
 }
 
 .task-item {
