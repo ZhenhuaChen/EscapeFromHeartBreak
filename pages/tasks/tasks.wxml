@@ -19,33 +19,62 @@
       <view class="task-desc">{{todayTask.desc}}</view>
     </view>
     <view class="task-hint">
-      <text>👇 点击下方任务列表中的任务完成打卡</text>
+      <text>👇 点击下方完成今日任务打卡</text>
+    </view>
+    <view wx:if="{{!todayTaskCompleted && tasksList.length > 0}}" class="today-tasks-list">
+      <view
+        wx:for="{{tasksList}}"
+        wx:key="id"
+        class="today-task-item {{item.completed ? 'completed' : ''}}"
+        bindtap="handleTaskTap"
+        data-task-id="{{item.id}}"
+      >
+        <view class="task-checkbox {{item.completed ? 'checked' : ''}}"
+>
+          <text wx:if="{{item.completed}}" class="check-icon">✓</text>
+        </view>
+        <view class="task-name">{{item.title}}</view>
+      </view>
     </view>
     <view wx:if="{{todayTaskCompleted}}" class="completed-time">
       完成时间：{{completedTimeStr}}
     </view>
   </view>
 
-  <view class="all-tasks-section">
-    <view class="section-title">所有任务</view>
-    <view class="tasks-list">
+  <view class="custom-tasks-section">
+    <view class="section-header">
+      <view class="section-title">我的待办</view>
+      <button wx:if="{{customTasks.length < 5}}" class="add-task-btn" bindtap="showAddTaskDialog">
+        <text class="add-icon">+</text>
+      </button>
+    </view>
+
+    <view wx:if="{{customTasks.length === 0}}" class="empty-tasks">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">还没有自定义任务</text>
+      <text class="empty-tip">点击右上角 + 添加待办事项</text>
+    </view>
+
+    <view wx:else class="custom-tasks-list">
       <view
-        wx:for="{{tasksList}}"
+        wx:for="{{customTasks}}"
         wx:key="id"
-        class="task-item {{item.completed ? 'completed' : ''}} {{item.day === detoxDays ? 'current' : ''}}"
-        bindtap="handleTaskTap"
-        data-task-id="{{item.id}}"
+        class="custom-task-item {{item.completed ? 'completed' : ''}}"
       >
-        <view class="task-info">
-          <view class="task-name">Day {{item.day}} - {{item.title}}</view>
-          <view class="task-description">{{item.desc}}</view>
-        </view>
-        <view class="task-check">
+        <view class="task-checkbox {{item.completed ? 'checked' : ''}}" bindtap="toggleCustomTask" data-id="{{item.id}}">
           <text wx:if="{{item.completed}}" class="check-icon">✓</text>
-          <text wx:elif="{{item.day === detoxDays}}" class="check-icon pending">○</text>
+        </view>
+        <view class="task-content">
+          <view class="task-text">{{item.content}}</view>
+          <view wx:if="{{item.completed}}" class="task-time">完成于 {{item.completedTimeStr}}</view>
+        </view>
+        <view class="task-delete" bindtap="deleteCustomTask" data-id="{{item.id}}">
+          <text>×</text>
         </view>
       </view>
     </view>
+
+    <view class="task-count">{{customTasks.length}}/5</view>
   </view>
 </view>
 
@@ -56,5 +85,24 @@
     <view class="encouragement-title">任务完成！</view>
     <view class="encouragement-message">{{encouragementMessage}}</view>
     <button class="encouragement-btn" bindtap="closeEncouragement">继续加油</button>
+  </view>
+</view>
+
+<!-- 添加任务弹窗 -->
+<view wx:if="{{showAddDialog}}" class="add-task-modal" bindtap="closeAddDialog">
+  <view class="add-task-content" catchtap="stopPropagation">
+    <view class="dialog-title">添加待办事项</view>
+    <textarea
+      class="task-input"
+      placeholder="输入待办事项..."
+      maxlength="50"
+      value="{{newTaskContent}}"
+      bindinput="handleTaskInput"
+      auto-focus
+    />
+    <view class="dialog-buttons">
+      <button class="cancel-btn" bindtap="closeAddDialog">取消</button>
+      <button class="confirm-btn" bindtap="addCustomTask">确定</button>
+    </view>
   </view>
 </view>

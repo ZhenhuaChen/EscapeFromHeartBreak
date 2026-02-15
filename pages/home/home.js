@@ -31,9 +31,12 @@ Page({
     const detoxDays = app.getDetoxDays()
     const recoveryDays = assessment.recoveryDays || 30
 
-    // 转换任务为数组并判断是否解锁
-    const tasksList = Object.values(tasks).map(task => {
-      const unlocked = detoxDays + 1 >= task.day
+    // 只获取今日的任务（当前戒断天数对应的任务）
+    const allTasks = Object.values(tasks)
+    const todayTasks = allTasks.filter(task => task.day === detoxDays)
+
+    const tasksList = todayTasks.map(task => {
+      const unlocked = true  // 今日任务都是已解锁的
       let dateStr = ''
       if (task.date) {
         const date = new Date(task.date)
@@ -46,9 +49,9 @@ Page({
       }
     })
 
-    // 计算完成任务数和总任务数
-    const totalTasksCount = tasksList.length
-    const completedTasksCount = tasksList.filter(t => t.completed).length
+    // 计算完成任务数和总任务数（基于所有任务，不只是今日任务）
+    const totalTasksCount = allTasks.length
+    const completedTasksCount = allTasks.filter(t => t.completed).length
 
     // 计算进度百分比
     const progressPercent = totalTasksCount > 0 ? Math.round((completedTasksCount / totalTasksCount) * 100) : 0

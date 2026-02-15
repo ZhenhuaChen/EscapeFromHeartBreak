@@ -10,8 +10,11 @@ Page({
     todayTaskCompleted: false,
     completedTimeStr: '',
     tasksList: [],
+    customTasks: [],
     showEncouragement: false,
-    encouragementMessage: ''
+    encouragementMessage: '',
+    showAddDialog: false,
+    newTaskContent: ''
   },
 
   onLoad() {
@@ -27,25 +30,22 @@ Page({
     const today = new Date()
     const todayDate = `${today.getMonth() + 1}月${today.getDate()}日`
 
-    // 获取所有里程碑任务 - 优先从 globalData 读取，提高性能
+    // 获取今日的戒断任务
     let tasks = app.globalData.tasks
     if (!tasks) {
       tasks = wx.getStorageSync('tasks') || {}
       app.globalData.tasks = tasks
     }
-    const allTasks = Object.values(tasks).sort((a, b) => a.day - b.day)
-
-    // 只显示当天和过去的任务（不显示未来的任务）
-    const tasksList = allTasks.filter(task => task.day <= detoxDays)
+    const allTasks = Object.values(tasks)
+    const todayTasks = allTasks.filter(task => task.day === detoxDays)
 
     // 获取今天的第一个任务作为"今日任务"展示
-    const todayTasks = DETOX_TASKS.filter(t => t.day === detoxDays)
-    const todayTask = todayTasks.length > 0 ? todayTasks[0] : { title: '休息日', desc: '今天没有新任务，继续保持！' }
+    const todayTask = DETOX_TASKS.filter(t => t.day === detoxDays)[0] ||
+                      { title: '休息日', desc: '今天没有新任务，继续保持！' }
 
-    // 检查今日任务完成情况 - 检查当天所有任务是否都完成
-    const todayTasksInList = tasksList.filter(t => t.day === detoxDays)
-    const completedTodayTasks = todayTasksInList.filter(t => t.completed)
-    const todayTaskCompleted = todayTasksInList.length > 0 && completedTodayTasks.length === todayTasksInList.length
+    // 检查今日任务完成情况
+    const completedTodayTasks = todayTasks.filter(t => t.completed)
+    const todayTaskCompleted = todayTasks.length > 0 && completedTodayTasks.length === todayTasks.length
 
     let completedTimeStr = ''
     if (todayTaskCompleted && completedTodayTasks.length > 0) {
@@ -56,21 +56,39 @@ Page({
       }
     }
 
+    // 加载自定义任务
+    const customTasks = this.loadCustomTasks()
+
     this.setData({
       detoxDays,
       todayDate,
       todayTask,
       todayTaskCompleted,
       completedTimeStr,
-      tasksList
+      tasksList: todayTasks,
+      customTasks
     })
   },
 
-  // 处理任务列表项点击
+  // 加载自定义任务
+  loadCustomTasks() {
+    const tasks = wx.getStorageSync('customTasks') || []
+    return tasks.map(task => {
+      let completedTimeStr = ''
+      if (task.completed && task.completedTime) {
+        const time = new Date(task.completedTime)
+        completedTimeStr = `${time.getMonth() + 1}/${time.getDate()} ${time.getHours()}:${String(time.getMinutes()).padStart(2, '0')}`
+      }
+      return {
+        ...task,
+        completedTimeStr
+      }
+    })
+  },
+
+  // 处理今日戒断任务点击
   handleTaskTap(e) {
     const taskId = e.currentTarget.dataset.taskId
-
-    // 优先从 globalData 读取
     let tasks = app.globalData.tasks
     if (!tasks) {
       tasks = wx.getStorageSync('tasks') || {}
@@ -78,24 +96,7 @@ Page({
     }
 
     const task = tasks[taskId]
-
     if (!task) return
-
-    // 只能完成当天的任务
-    if (task.day !== this.data.detoxDays) {
-      if (task.day < this.data.detoxDays) {
-        wx.showToast({
-          title: '任务已过期',
-          icon: 'none'
-        })
-      } else {
-        wx.showToast({
-          title: '任务未解锁',
-          icon: 'none'
-        })
-      }
-      return
-    }
 
     // 已完成的任务不能再次完成
     if (task.completed) {
@@ -115,6 +116,9 @@ Page({
     wx.setStorageSync('tasks', tasks)
     app.globalData.tasks = tasks
 
+    // 同步到云端
+    app.completeTask(taskId)
+
     // 显示鼓励弹窗
     this.showEncouragementModal()
 
@@ -122,9 +126,119 @@ Page({
     this.loadData()
   },
 
+  // 显示添加任务弹窗
+  showAddTaskDialog() {
+    this.setData({
+      showAddDialog: true,
+      newTaskContent: ''
+    })
+  },
+
+  // 关闭添加任务弹窗
+  closeAddDialog() {
+    this.setData({
+      showAddDialog: false,
+      newTaskContent: ''
+    })
+  },
+
+  // 输入任务内容
+  handleTaskInput(e) {
+    this.setData({
+      newTaskContent: e.detail.value
+    })
+  },
+
+  // 添加自定义任务
+  addCustomTask() {
+    const content = this.data.newTaskContent.trim()
+    if (!content) {
+      wx.showToast({
+        title: '请输入任务内容',
+        icon: 'none'
+      })
+      return
+    }
+
+    const customTasks = wx.getStorageSync('customTasks') || []
+
+    if (customTasks.length >= 5) {
+      wx.showToast({
+        title: '最多只能添加5个任务',
+        icon: 'none'
+      })
+      return
+    }
+
+    const newTask = {
+      id: Date.now().toString(),
+      content: content,
+      completed: false,
+      completedTime: null,
+      createdTime: Date.now()
+    }
+
+    customTasks.push(newTask)
+    wx.setStorageSync('customTasks', customTasks)
+
+    wx.showToast({
+      title: '添加成功',
+      icon: 'success'
+    })
+
+    this.closeAddDialog()
+    this.loadData()
+  },
+
+  // 切换自定义任务完成状态
+  toggleCustomTask(e) {
+    const taskId = e.currentTarget.dataset.id
+    const customTasks = wx.getStorageSync('customTasks') || []
+
+    const taskIndex = customTasks.findIndex(t => t.id === taskId)
+    if (taskIndex >= 0) {
+      customTasks[taskIndex].completed = !customTasks[taskIndex].completed
+      customTasks[taskIndex].completedTime = customTasks[taskIndex].completed ? Date.now() : null
+
+      wx.setStorageSync('customTasks', customTasks)
+
+      if (customTasks[taskIndex].completed) {
+        wx.showToast({
+          title: '完成了一项任务！',
+          icon: 'success'
+        })
+      }
+
+      this.loadData()
+    }
+  },
+
+  // 删除自定义任务
+  deleteCustomTask(e) {
+    const taskId = e.currentTarget.dataset.id
+
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这个任务吗？',
+      success: (res) => {
+        if (res.confirm) {
+          const customTasks = wx.getStorageSync('customTasks') || []
+          const newTasks = customTasks.filter(t => t.id !== taskId)
+          wx.setStorageSync('customTasks', newTasks)
+
+          wx.showToast({
+            title: '已删除',
+            icon: 'success'
+          })
+
+          this.loadData()
+        }
+      }
+    })
+  },
+
   // 显示鼓励弹窗
   showEncouragementModal() {
-    // 随机选择一条鼓励语
     const randomIndex = Math.floor(Math.random() * ENCOURAGEMENT_MESSAGES.length)
     const message = ENCOURAGEMENT_MESSAGES[randomIndex]
 

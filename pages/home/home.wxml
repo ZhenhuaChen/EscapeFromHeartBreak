@@ -38,12 +38,17 @@
 
   <!-- 任务列表 -->
   <view class="tasks-section">
-    <view class="section-title">戒断任务</view>
-    <view class="tasks-list">
+    <view class="section-title">今日任务 (Day {{detoxDays}})</view>
+    <view wx:if="{{tasksList.length === 0}}" class="no-tasks">
+      <text class="no-tasks-icon">🎉</text>
+      <text class="no-tasks-text">今天没有新任务</text>
+      <text class="no-tasks-tip">好好享受轻松的一天吧</text>
+    </view>
+    <view wx:else class="tasks-list">
       <view
         wx:for="{{tasksList}}"
         wx:key="id"
-        class="task-item {{item.completed ? 'completed' : ''}} {{item.unlocked ? '' : 'locked'}}"
+        class="task-item {{item.completed ? 'completed' : ''}}"
       >
         <view class="task-left">
           <view class="task-checkbox {{item.completed ? 'checked' : ''}}" bindtap="handleToggleTask" data-id="{{item.id}}">
@@ -52,13 +57,11 @@
           <view class="task-info">
             <view class="task-title">
               <text>{{item.title}}</text>
-              <text wx:if="{{!item.unlocked}}" class="lock-icon">🔒</text>
             </view>
             <view class="task-desc">{{item.desc}}</view>
             <view wx:if="{{item.completed}}" class="task-date">完成于 {{item.dateStr}}</view>
           </view>
         </view>
-        <view class="task-day">Day {{item.day}}</view>
       </view>
     </view>
   </view>

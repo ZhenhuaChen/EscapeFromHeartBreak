@@ -233,3 +233,251 @@
   border: none;
   box-shadow: 0 8rpx 24rpx rgba(255, 157, 205, 0.3);
 }
+
+/* 今日任务列表（卡片内的） */
+.today-tasks-list {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.today-task-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12rpx;
+  gap: 16rpx;
+}
+
+.today-task-item.completed {
+  opacity: 0.6;
+}
+
+.task-checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.task-checkbox.checked {
+  background: #fff;
+  border-color: #fff;
+}
+
+.task-checkbox .check-icon {
+  color: #ff9dcd;
+  font-size: 20rpx;
+}
+
+/* 自定义任务区域 */
+.custom-tasks-section {
+  margin-top: 40rpx;
+  padding-bottom: 40rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.add-task-btn {
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  background: linear-gradient(135deg, #ff9dcd 0%, #ffa8d8 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(255, 157, 205, 0.3);
+}
+
+.add-icon {
+  color: #fff;
+  font-size: 40rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* 空状态 */
+.empty-tasks {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 60rpx 40rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 10rpx;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.empty-tip {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 自定义任务列表 */
+.custom-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.custom-task-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.custom-task-item.completed {
+  opacity: 0.6;
+}
+
+.custom-task-item .task-checkbox {
+  width: 40rpx;
+  height: 40rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.custom-task-item .task-checkbox.checked {
+  background: #81d4fa;
+  border-color: #81d4fa;
+}
+
+.custom-task-item .check-icon {
+  color: #fff;
+  font-size: 22rpx;
+}
+
+.task-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-text {
+  font-size: 28rpx;
+  color: #333;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.custom-task-item.completed .task-text {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task-time {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.task-delete {
+  width: 44rpx;
+  height: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff4444;
+  font-size: 44rpx;
+  flex-shrink: 0;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.task-count {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+/* 添加任务弹窗 */
+.add-task-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.add-task-content {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin: 0 60rpx;
+  width: 560rpx;
+  animation: slideUp 0.3s ease-out;
+}
+
+.dialog-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.task-input {
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  min-height: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.dialog-buttons {
+  display: flex;
+  gap: 20rpx;
+}
+
+.cancel-btn,
+.confirm-btn {
+  flex: 1;
+  font-size: 30rpx;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.confirm-btn {
+  background: linear-gradient(135deg, #ff9dcd 0%, #ffa8d8 100%);
+  color: #fff;
+}
