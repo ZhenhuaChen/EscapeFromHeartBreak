@@ -259,8 +259,8 @@ App({
   // 计算戒断天数
   getDetoxDays() {
     const assessment = wx.getStorageSync('assessment')
-    if (!assessment || !assessment.startDate) return 0
+    if (!assessment || !assessment.startDate) return 1  // 首次进入默认为 Day 1
     const days = Math.floor((Date.now() - assessment.startDate) / (1000 * 60 * 60 * 24))
-    return days
+    return days + 1  // 加1，让第一天显示为 Day 1
   }
 })

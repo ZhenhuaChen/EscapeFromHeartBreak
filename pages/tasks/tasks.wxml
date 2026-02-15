@@ -9,19 +9,10 @@
 
   <view class="daily-task-card">
     <view class="task-header">
-      <text class="task-day">Day {{detoxDays}}</text>
-      <text class="task-status {{todayTaskCompleted ? 'completed' : ''}}">
-        {{todayTaskCompleted ? '全部完成' : '进行中'}}
-      </text>
+      <text class="task-day">系统任务</text>
+      <text class="task-status {{todayTaskCompleted ? 'completed' : ''}}">{{todayTaskCompleted ? '全部完成' : '进行中'}}</text>
     </view>
-    <view class="task-content">
-      <view class="task-title">{{todayTask.title}}</view>
-      <view class="task-desc">{{todayTask.desc}}</view>
-    </view>
-    <view class="task-hint">
-      <text>👇 点击下方完成今日任务打卡</text>
-    </view>
-    <view wx:if="{{!todayTaskCompleted && tasksList.length > 0}}" class="today-tasks-list">
+    <view class="today-tasks-list">
       <view
         wx:for="{{tasksList}}"
         wx:key="id"
@@ -44,9 +35,9 @@
   <view class="custom-tasks-section">
     <view class="section-header">
       <view class="section-title">我的待办</view>
-      <button wx:if="{{customTasks.length < 5}}" class="add-task-btn" bindtap="showAddTaskDialog">
+      <view wx:if="{{customTasks.length < 5}}" class="add-task-btn" bindtap="showAddTaskDialog">
         <text class="add-icon">+</text>
-      </button>
+      </view>
     </view>
 
     <view wx:if="{{customTasks.length === 0}}" class="empty-tasks">
