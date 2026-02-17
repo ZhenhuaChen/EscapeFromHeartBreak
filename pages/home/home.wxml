@@ -1,7 +1,7 @@
 <!--home.wxml-->
 <navigation-bar title="失恋戒断" background="linear-gradient(90deg, #ffc0e0 0%, #ffe5f0 100%)" color="#333" back="{{false}}"></navigation-bar>
 
-<view class="container">
+<scroll-view class="container" scroll-y="true">
   <!-- 顶部状态卡片 -->
   <view class="status-card">
     <view class="greeting">你好，{{userProfile.nickname}}</view>
@@ -22,19 +22,18 @@
         <text class="days-label">完成任务</text>
       </view>
     </view>
+    <view class="progress-section">
+      <view class="progress-header">
+        <text class="progress-tip">{{progressTip}}</text>
+        <text class="progress-percent">{{progressPercent}}%</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progressPercent}}%"></view>
+      </view>
+    </view>
   </view>
 
-  <!-- 进度条 -->
-  <view class="progress-section">
-    <view class="progress-header">
-      <text class="progress-title">恢复进度</text>
-      <text class="progress-percent">{{progressPercent}}%</text>
-    </view>
-    <view class="progress-bar">
-      <view class="progress-fill" style="width: {{progressPercent}}%"></view>
-    </view>
-    <view class="progress-tip">{{progressTip}}</view>
-  </view>
+
 
   <!-- 任务列表 -->
   <view class="tasks-section">
@@ -65,16 +64,4 @@
       </view>
     </view>
   </view>
-
-  <!-- 快捷操作 -->
-  <view class="quick-actions">
-    <button class="action-btn emergency-btn" bindtap="goToEmergency">
-      <text class="btn-icon">💊</text>
-      <text class="btn-text">情绪急救</text>
-    </button>
-    <button class="action-btn emotion-btn" bindtap="recordEmotion">
-      <text class="btn-icon">📝</text>
-      <text class="btn-text">记录情绪</text>
-    </button>
-  </view>
-</view>
+</scroll-view>

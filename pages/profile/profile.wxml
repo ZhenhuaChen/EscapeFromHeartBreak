@@ -2,6 +2,17 @@
 <navigation-bar title="我的" background="linear-gradient(90deg, #ffc0e0 0%, #ffe5f0 100%)" color="#333" back="{{false}}"></navigation-bar>
 
 <view class="container">
+  <!-- 快捷操作 -->
+  <view class="quick-actions">
+    <button class="action-btn emergency-btn" bindtap="goToEmergency">
+      <text class="btn-icon">💊</text>
+      <text class="btn-text">情绪急救</text>
+    </button>
+    <button class="action-btn emotion-btn" bindtap="recordEmotion">
+      <text class="btn-icon">📝</text>
+      <text class="btn-text">记录情绪</text>
+    </button>
+  </view>
   <view class="menu-list">
     <view class="menu-item" bindtap="goToEmergency">
       <view class="menu-left">
