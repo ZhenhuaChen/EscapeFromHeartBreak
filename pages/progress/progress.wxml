@@ -9,9 +9,58 @@
         wx:for="{{calendarDays}}"
         wx:key="index"
         class="calendar-day {{item.completed ? 'completed' : ''}} {{item.isToday ? 'today' : ''}}"
+        bindtap="calendarDayTap"
+        data-index="{{index}}"
       >
         <text class="day-number">{{item.day}}</text>
       </view>
     </view>
+  </view>
+</view>
+
+<!-- 当天详情弹窗 -->
+<view wx:if="{{showDayDetail}}" class="detail-mask" bindtap="closeDayDetail">
+  <view class="detail-panel" catchtap="">
+    <view class="detail-header">
+      <text class="detail-title">第{{selectedDayInfo.dayNum}}天 · {{selectedDayInfo.dateStr}}</text>
+      <view class="detail-close" bindtap="closeDayDetail">×</view>
+    </view>
+
+    <scroll-view scroll-y class="detail-body">
+      <!-- 无数据提示 -->
+      <view wx:if="{{!selectedDayInfo.hasData}}" class="detail-empty-all">
+        <text class="detail-empty-icon">📭</text>
+        <text class="detail-empty-text">这一天还没有任何记录</text>
+      </view>
+
+      <!-- 完成的任务 -->
+      <view wx:if="{{selectedDayInfo.completedTasks.length > 0 || selectedDayInfo.completedCustomTasks.length > 0}}" class="detail-section">
+        <view class="detail-section-title">
+          <text class="detail-section-icon">✅</text>
+          <text>完成的事项</text>
+        </view>
+        <view wx:for="{{selectedDayInfo.completedTasks}}" wx:key="index" class="detail-task-item">
+          <text class="detail-check">✓</text>
+          <text class="detail-task-name">{{item.title}}</text>
+        </view>
+        <view wx:for="{{selectedDayInfo.completedCustomTasks}}" wx:key="index" class="detail-task-item custom">
+          <text class="detail-check">✓</text>
+          <text class="detail-task-name">{{item.content}}</text>
+        </view>
+      </view>
+
+      <!-- 心情记录 -->
+      <view wx:if="{{selectedDayInfo.emotions.length > 0}}" class="detail-section">
+        <view class="detail-section-title">
+          <text class="detail-section-icon">💭</text>
+          <text>心情记录</text>
+        </view>
+        <view wx:for="{{selectedDayInfo.emotions}}" wx:key="index" class="detail-emotion-item">
+          <text class="emotion-emoji">{{item.emoji}}</text>
+          <text class="emotion-label">{{item.label}}</text>
+          <text class="emotion-time">{{item.timeStr}}</text>
+        </view>
+      </view>
+    </scroll-view>
   </view>
 </view>

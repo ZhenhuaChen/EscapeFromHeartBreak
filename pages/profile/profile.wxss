@@ -61,7 +61,7 @@
 .quick-actions {
   display: flex;
   gap: 20rpx;
-  margin-top: 30rpx;
+  margin: 30rpx 24rpx;
 }
 
 .action-btn {

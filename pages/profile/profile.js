@@ -1,4 +1,6 @@
 // pages/profile/profile.js
+const app = getApp()
+
 Page({
   data: {
     nickname: '',
@@ -29,12 +31,17 @@ Page({
     })
   },
 
-  viewEmotionRecords() {
-    const emotions = wx.getStorageSync('emotions') || []
-    wx.showModal({
-      title: '情绪记录',
-      content: emotions.length > 0 ? `您已记录 ${emotions.length} 次情绪` : '暂无记录',
-      showCancel: false
+  recordEmotion() {
+    wx.showActionSheet({
+      itemList: ['很糟糕', '不太好', '一般', '还可以', '很好'],
+      success: (res) => {
+        const level = res.tapIndex + 1
+        app.addEmotion(level)
+        wx.showToast({
+          title: '记录成功',
+          icon: 'success'
+        })
+      }
     })
   },
 
