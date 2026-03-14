@@ -208,3 +208,17 @@
   color: #bbb;
   flex-shrink: 0;
 }
+.calendar-tip {
+  margin: 16rpx 0 0 0;
+  padding: 20rpx 36rpx;
+  background: rgba(255,239,245,0.7); /* 呼应顶部渐变 */
+  border-radius: 40rpx;
+  display: inline-block;
+  color: #666;
+  font-size: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(250,202,218,0.10);
+  letter-spacing: 1rpx;
+  text-align: center;
+}
+
+

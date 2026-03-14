@@ -5,7 +5,8 @@
       "Bash(find:*)",
       "Bash(\"/Users/chenzhenhua/WeChatProjects/逃出失恋/逃出失恋lab/pages/tasks/tasks.wxml\":*)",
       "Bash(\"/Users/chenzhenhua/WeChatProjects/逃出失恋/逃出失恋lab/pages/tasks/tasks-new.js\":*)",
-      "Bash(\"/Users/chenzhenhua/WeChatProjects/逃出失恋/逃出失恋lab/pages/tasks/tasks.wxss\":*)"
+      "Bash(\"/Users/chenzhenhua/WeChatProjects/逃出失恋/逃出失恋lab/pages/tasks/tasks.wxss\":*)",
+      "Bash(python3:*)"
     ]
   }
 }

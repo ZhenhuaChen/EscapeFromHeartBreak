@@ -16,6 +16,9 @@
       </view>
     </view>
   </view>
+  <view class="calendar-tip">
+    <text>👣 点击每天，回看你走过的路</text>
+  </view>
 </view>
 
 <!-- 当天详情弹窗 -->
